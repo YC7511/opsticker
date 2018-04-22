@@ -15,7 +15,7 @@ router.get('/:channel_name', function(req, res, next) {
   				var feed = new rss({
   					title:"#" + channel.name,
   					description:"The links that have been posted to the #"+channel.name +" on Slack",
-  					site_url: 'https://github.com/gozman/slack-rss',
+  					site_url: 'https://github.com/YC7511/opsticker',
   					ttl: '30',
   				});
 
