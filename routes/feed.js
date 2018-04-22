@@ -37,7 +37,7 @@ router.get('/:channel_name', function(req, res, next) {
 				  				}
 				  			}
 			  			}
-  					}
+  					
 
   				res.send(feed.xml({indent: true}));
 				});
