@@ -15,15 +15,13 @@ router.get('/:channel_name', function(req, res, next) {
   				var feed = new rss({
   					title:"#" + channel.name,
   					description:"The links that have been posted to the #"+channel.name +" on Slack",
-  					site_url: 'https://github.com/YC7511/opsticker',
+  					site_url: 'https://github.com/gozman/slack-rss',
   					ttl: '30',
-  					
   				});
 
   				slack.api('channels.history', {'channel':channel.id,'count':process.env.HISTORY_LENGTH} ,function(err, response){
 			  		for(var i = 0; i < response.messages.length; i++) {
-			  			if(response.messages[i] && response.messages[i].subtype != "bot_message") {  				
-				  			
+			  					if(response.messages[i].title) {
 				  					var msg = response.messages[i];
 
 				  					var t = new Date(response.messages[i].ts * 1000);
@@ -31,13 +29,13 @@ router.get('/:channel_name', function(req, res, next) {
 				  					feed.item({
 				  						title: msg.title,
 				  						description: msg.text,
-				  						//url: link.title_link,
+				  						url: msg.title_link,
 				  						date: t
 				  					});
 				  				}
-				  			}
-			  			}
-  					
+		
+		
+  					}
 
   				res.send(feed.xml({indent: true}));
 				});
